@@ -1,6 +1,8 @@
 import re
 import pytest
 
+# run with pytest
+
 def is_palindrome(data):
     if not data or type(data) not in [str, list, int, float]:
         raise ValueError
