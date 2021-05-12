@@ -3,8 +3,8 @@ from functools import wraps
 def validate_input(function):
     @wraps(function)
     def wrapper(number):
-        # if type(number) != int:
-        #     raise ValueError('Input type not allowed, only integer')
+        if type(number) != int:
+            raise ValueError('Input type not allowed, only integer')
         if number < 2:
             raise ValueError('Only numbers bigger than 1')
         return function(number)

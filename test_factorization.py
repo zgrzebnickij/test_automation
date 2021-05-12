@@ -27,3 +27,7 @@ def test_first_10_numbers():
 def test_0_and_1():
     for number in [0,1]:
         pytest.raises(ValueError, prime_factors, number)
+
+def test_illegal_input():
+    for case in [None, '', False, 1.324, -3, '123']:
+        pytest.raises(ValueError, prime_factors, case)
