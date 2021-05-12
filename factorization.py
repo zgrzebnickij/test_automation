@@ -22,4 +22,4 @@ def prime_factors(number: int) -> list:
             factors.append(i)
     if number > 1:
         factors.append(number)
-    return list(set(factors))
+    return sorted(list(set(factors)))

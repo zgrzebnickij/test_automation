@@ -31,3 +31,13 @@ def test_0_and_1():
 def test_illegal_input():
     for case in [None, '', False, 1.324, -3, '123']:
         pytest.raises(ValueError, prime_factors, case)
+
+def test_complicated_numbers():
+    cases = {
+        3958159172: [2, 11, 2347, 38329],
+        20: [2, 5],
+        99: [3, 11],
+    }
+    for case, should_return in cases.items():
+        result = prime_factors(case)
+        assert result == should_return, f'prime_factors for {case} should return {should_return}, but get {result}'
