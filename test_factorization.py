@@ -1,5 +1,5 @@
 from factorization import prime_factors
-
+import pytest
 
 def test_import_function():
     try:
@@ -23,3 +23,7 @@ def test_first_10_numbers():
     for case, should_return in cases.items():
         result = prime_factors(case)
         assert result == should_return, f'prime_factors for {case} should return {should_return}, but get {result}'
+
+def test_0_and_1():
+    for number in [0,1]:
+        pytest.raises(ValueError, prime_factors, number)
