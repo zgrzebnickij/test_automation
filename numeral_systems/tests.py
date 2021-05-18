@@ -51,8 +51,6 @@ class test_roman_to_decimal(unittest.TestCase):
                 assert False, 'Should return Value error'
             except ValueError as error: 
                 pass
-            except Exception as error:
-                assert False, f'Wrong error expected ValueError, but got {error}'
 
     def test_incorect_order(self):
         
@@ -63,8 +61,6 @@ class test_roman_to_decimal(unittest.TestCase):
         for invalid in tests:
             try:
                 result =  roman_to_decimal(invalid)
-                assert False, f'Should return Value error, but got {result}'
+                assert False, f'Should return Value error, but got {result} for {invalid}'
             except ValueError as error: 
                 pass
-            except Exception as error:
-                assert False, f'Wrong error expected ValueError, but got {error}'

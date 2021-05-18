@@ -45,9 +45,12 @@ def roman_to_decimal(roman):
     before = ''
     result = 0
     for current in reversed(roman):
-        if before in WHEN_BEFORE.get(current, ()):
+        print(current, before)
+        if before in WHEN_BEFORE.get(current, []):
             result -= ROMAN_TO_DECIMAL_MAP[current]
-        else:
+        elif before == '' or (ROMAN_TO_DECIMAL_MAP[before] <= ROMAN_TO_DECIMAL_MAP[current]):
             result += ROMAN_TO_DECIMAL_MAP[current]
+        else:
+            raise ValueError('Passed value is not a valid Roman number')
         before = current
     return result
