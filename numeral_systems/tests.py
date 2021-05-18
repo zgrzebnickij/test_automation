@@ -53,3 +53,18 @@ class test_roman_to_decimal(unittest.TestCase):
                 pass
             except Exception as error:
                 assert False, f'Wrong error expected ValueError, but got {error}'
+
+    def test_incorect_order(self):
+        
+        # I can only be placed before V and X.
+        # X can only be placed before L and C.
+        # C can only be placed before D and M.
+        tests = ['ID', 'IC', 'IM', 'IL', 'XD', 'XM']
+        for invalid in tests:
+            try:
+                result =  roman_to_decimal(invalid)
+                assert False, f'Should return Value error, but got {result}'
+            except ValueError as error: 
+                pass
+            except Exception as error:
+                assert False, f'Wrong error expected ValueError, but got {error}'
