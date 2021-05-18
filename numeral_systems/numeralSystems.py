@@ -34,6 +34,9 @@ def validation(func):
             raise ValueError('Expected string')
         if roman == '':
             raise ValueError('String canot be empty')
+        valid_characters = list(ROMAN_TO_DECIMAL_MAP.keys())
+        if any(character not in valid_characters for character in roman):
+            raise ValueError('Invalid Character')
         return func(*args, **kwargs)
     return inner
 
