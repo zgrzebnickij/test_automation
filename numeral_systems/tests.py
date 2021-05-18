@@ -16,3 +16,8 @@ class test_roman_to_decimal(unittest.TestCase):
         for roman, decimal in (('I', 1),('III', 3)):
             result =  roman_to_decimal(roman)
             assert result == decimal, f'Fail roman_to_decimal for {roman} should be {decimal}, but got {result}'
+
+    def test_first_numbers(self):
+        for roman, decimal in (('V', 5),('IV', 4), ('VIII', 8)):
+            result =  roman_to_decimal(roman)
+            assert result == decimal, f'Fail roman_to_decimal for {roman} should be {decimal}, but got {result}'
