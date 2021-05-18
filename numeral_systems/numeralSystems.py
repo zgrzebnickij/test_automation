@@ -1,4 +1,7 @@
 from functools import wraps
+import re
+
+VALID_ROMAN_PATTERN = re.compile(r'^(?=[MDCLXVI])M*(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$')
 
 ROMAN_TO_DECIMAL_MAP = {
     'I': 1,
@@ -34,9 +37,13 @@ def validation(func):
             raise ValueError('Expected string')
         if roman == '':
             raise ValueError('String canot be empty')
-        valid_characters = list(ROMAN_TO_DECIMAL_MAP.keys())
-        if any(character not in valid_characters for character in roman):
-            raise ValueError('Invalid Character')
+        # valid_characters = list(ROMAN_TO_DECIMAL_MAP.keys())
+        # if any(character not in valid_characters for character in roman):
+        #     raise ValueError('Invalid Character')
+        # if any(roman.count(char)>1 for char in ('D', 'L', 'V')):
+        #     raise ValueError('D, L, and V can each only appear once.')
+        if not VALID_ROMAN_PATTERN.match(roman):
+            raise ValueError('Not a Roman numeral')
         return func(*args, **kwargs)
     return inner
 
@@ -50,7 +57,7 @@ def roman_to_decimal(roman):
             result -= ROMAN_TO_DECIMAL_MAP[current]
         elif before == '' or (ROMAN_TO_DECIMAL_MAP[before] <= ROMAN_TO_DECIMAL_MAP[current]):
             result += ROMAN_TO_DECIMAL_MAP[current]
-        else:
-            raise ValueError('Passed value is not a valid Roman number')
+        # else:
+        #     raise ValueError('Passed value is not a valid Roman number')
         before = current
     return result

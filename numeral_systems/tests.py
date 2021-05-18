@@ -53,11 +53,22 @@ class test_roman_to_decimal(unittest.TestCase):
                 pass
 
     def test_incorect_order(self):
-        
         # I can only be placed before V and X.
         # X can only be placed before L and C.
         # C can only be placed before D and M.
         tests = ['ID', 'IC', 'IM', 'IL', 'XD', 'XM']
+        for invalid in tests:
+            try:
+                result =  roman_to_decimal(invalid)
+                assert False, f'Should return Value error, but got {result} for {invalid}'
+            except ValueError as error: 
+                pass
+
+    def test_incorect_order_2(self):
+        # Numerals must be arranged in descending order of size.
+        # M, C, and X cannot be equalled or exceeded by smaller denominations.
+        # D, L, and V can each only appear once.
+        tests = ['IM', 'XM', 'IXX', 'DD', 'LL', 'VV', 'MVVII']
         for invalid in tests:
             try:
                 result =  roman_to_decimal(invalid)
