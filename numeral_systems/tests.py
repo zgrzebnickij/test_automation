@@ -42,3 +42,14 @@ class test_roman_to_decimal(unittest.TestCase):
                 pass
             except Exception as error:
                 assert False, f'Wrong error expected ValueError, but got {error}'
+
+    def test_wrong_character(self):
+        'Test wrong types of input'
+        for invalid in ('ASD', 'LPTH', 'LB'):
+            try:
+                result =  roman_to_decimal(invalid)
+                assert False, 'Should return Value error'
+            except ValueError as error: 
+                pass
+            except Exception as error:
+                assert False, f'Wrong error expected ValueError, but got {error}'
