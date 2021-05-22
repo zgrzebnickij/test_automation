@@ -1,6 +1,6 @@
 import unittest
 from unittest import result
-from .numeralSystems import roman_to_decimal
+from .numeralSystems import roman_to_decimal, decimal_to_roman
 
 class test_roman_to_decimal(unittest.TestCase):
     # I do MMMCMXCIX (1 do 3999 dziesiętnie)
@@ -85,3 +85,8 @@ class test_decimal_to_roman(unittest.TestCase):
             assert callable(roman_to_decimal), "prime_factors not callable" 
         except ImportError as error: 
             assert False, error
+
+    def test_first_numbers(self):
+        for roman, decimal in (('V', 5),('IV', 4), ('VIII', 8)):
+            result =  decimal_to_roman(decimal)
+            assert result == decimal, f'Fail roman_to_decimal for {decimal} should be {roman}, but got {result}'
