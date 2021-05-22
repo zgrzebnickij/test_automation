@@ -75,3 +75,13 @@ class test_roman_to_decimal(unittest.TestCase):
                 assert False, f'Should return Value error, but got {result} for {invalid}'
             except ValueError as error: 
                 pass
+
+class test_decimal_to_roman(unittest.TestCase):
+    # I do MMMCMXCIX (1 do 3999 dziesiętnie)
+
+    def test_import(self):
+        try: 
+            from .numeralSystems import decimal_to_roman
+            assert callable(roman_to_decimal), "prime_factors not callable" 
+        except ImportError as error: 
+            assert False, error
