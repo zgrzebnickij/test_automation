@@ -1,5 +1,6 @@
 import unittest
 from unittest import result
+import pytest
 from .numeralSystems import roman_to_decimal, decimal_to_roman
 
 class test_roman_to_decimal(unittest.TestCase):
@@ -90,3 +91,21 @@ class test_decimal_to_roman(unittest.TestCase):
         for roman, decimal in (('V', 5),('IV', 4), ('VIII', 8)):
             result =  decimal_to_roman(decimal)
             assert result == roman, f'Fail roman_to_decimal for {decimal} should be {roman}, but got {result}'
+
+    def test_to_100_numbers(self):
+        for roman, decimal in (('X', 10),('IX', 9), ('XVIII', 18), ('XXXV', 35), ('XCIX', 99)):
+            result =  decimal_to_roman(decimal)
+            assert result == roman, f'Fail roman_to_decimal for {decimal} should be {roman}, but got {result}'
+
+    def test_to_1000_numbers(self):
+        for roman, decimal in (('CXLVII', 147),('CCCXIII', 313), ('CLXXXV', 185), ('DLXXXV', 585), ('DCCLIV', 754)):
+            result =  decimal_to_roman(decimal)
+            assert result == roman, f'Fail roman_to_decimal for {decimal} should be {roman}, but got {result}'
+
+    def test_invalid_types(self):
+        'Test wrong types of input'
+        for invalid in (0, 'IX', True):
+            with pytest.raises(ValueError) as error:
+                result =  decimal_to_roman(invalid)
+                print(result)
+            assert str(error.value)

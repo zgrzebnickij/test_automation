@@ -62,6 +62,19 @@ def roman_to_decimal(roman):
         before = current
     return result
 
+
+def validate_decimal(func):
+    @wraps(func)
+    def inner(*args, **kwargs):
+        decimal = args[0]
+        if type(decimal) != int:
+            raise ValueError('Expected decimal')
+        if not (0 < decimal <= 4000):
+            raise ValueError('Expected decimal from range 1 to 3999')
+        return func(*args, **kwargs)
+    return inner
+
+@validate_decimal
 def decimal_to_roman(decimal):
     num = [1, 4, 5, 9, 10, 40, 50, 90,
            100, 400, 500, 900, 1000]
