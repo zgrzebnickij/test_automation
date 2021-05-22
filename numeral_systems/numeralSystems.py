@@ -29,7 +29,7 @@ WHEN_BEFORE = {
 
 # Only one I, X, and C can be used as the leading numeral in part of a subtractive pair.
 
-def validation(func):
+def validation_roman(func):
     @wraps(func)
     def inner(*args, **kwargs):
         roman = args[0]
@@ -47,7 +47,7 @@ def validation(func):
         return func(*args, **kwargs)
     return inner
 
-@validation
+@validation_roman
 def roman_to_decimal(roman):
     before = ''
     result = 0
@@ -60,4 +60,19 @@ def roman_to_decimal(roman):
         # else:
         #     raise ValueError('Passed value is not a valid Roman number')
         before = current
+    return result
+
+def decimal_to_roman(decimal):
+    num = [1, 4, 5, 9, 10, 40, 50, 90,
+           100, 400, 500, 900, 1000]
+    sym = ["I", "IV", "V", "IX", "X", "XL",
+           "L", "XC", "C", "CD", "D", "CM", "M"]
+    result = ''
+    for number, symbol in sorted(zip(num, sym), reverse=True):
+        div = decimal // number
+        decimal %= number
+
+        for _ in range(div):
+            result += symbol
+
     return result

@@ -89,4 +89,4 @@ class test_decimal_to_roman(unittest.TestCase):
     def test_first_numbers(self):
         for roman, decimal in (('V', 5),('IV', 4), ('VIII', 8)):
             result =  decimal_to_roman(decimal)
-            assert result == decimal, f'Fail roman_to_decimal for {decimal} should be {roman}, but got {result}'
+            assert result == roman, f'Fail roman_to_decimal for {decimal} should be {roman}, but got {result}'
