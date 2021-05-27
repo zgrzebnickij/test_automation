@@ -1,4 +1,5 @@
 # tests/test_winner_api.py
+from requests import status_codes
 from tic_tac_toe.api import app
 from os import close, unlink
 from tempfile import mkstemp
@@ -85,3 +86,41 @@ def test_3x_in_a_column_with_mock(connection_mock):
 def test_3x_in_a_column(database_connection, create_games, test_input, expected):
     create_games(test_input)
     assert winner(database_connection, 1) == expected
+
+### testing function which requre request to external api
+
+def test_api_missing_parameter():
+    assert app.test_client().get('/winner_external').status_code == 400
+
+def test_api_response_error_from_external(monkeypatch):
+    monkeypatch.setattr(
+        'tic_tac_toe.api.requests',
+        Mock(
+            get=Mock(
+                return_value=Mock(
+                    status_code=502,
+                    text='X'
+                )
+            )
+        )
+    )
+    response = app.test_client().get('/winner_external?board=_________')
+    assert response.status_code == 502
+
+def test_api_response_is_json(monkeypatch):
+    monkeypatch.setattr(
+        'tic_tac_toe.api.requests',
+        Mock(
+            get=Mock(
+                return_value=Mock(
+                    status_code=200,
+                    text='X'
+                )
+            )
+        )
+    )
+    response = app.test_client().get('/winner_external?board=_________')
+    assert response.status_code == 200
+    assert response.content_type == 'application/json'
+    assert isinstance(response.json, dict)
+    assert 'winner' in response.json
